@@ -1,1 +1,143 @@
-
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Casambi Cloud",
+        "description": "Enter your Casambi Cloud API key and credentials. Provide at least one password: the user (site) password, the network password, or both.",
+        "data": {
+          "email": "Email",
+          "api_key": "API key",
+          "user_password": "User (site) password",
+          "network_password": "Network password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate Casambi Cloud",
+        "description": "The Casambi Cloud rejected the stored credentials for {email}. Enter a valid API key and at least one password to reconnect.",
+        "data": {
+          "api_key": "API key",
+          "user_password": "User (site) password",
+          "network_password": "Network password"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Casambi Cloud",
+        "description": "Update your Casambi Cloud credentials. Provide at least one password.",
+        "data": {
+          "email": "Email",
+          "api_key": "API key",
+          "user_password": "User (site) password",
+          "network_password": "Network password"
+        }
+      }
+    },
+    "error": {
+      "no_password": "Enter at least one password (user or network).",
+      "invalid_auth": "Invalid API key or password.",
+      "cannot_connect": "Could not reach the Casambi Cloud. Check your network and try again.",
+      "rate_limited": "The Casambi Cloud is rate limiting requests. Wait a little and try again.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This Casambi account is already configured.",
+      "reauth_successful": "Re-authentication was successful.",
+      "reconfigure_successful": "Reconfiguration was successful.",
+      "wrong_account": "The credentials are for a different Casambi account."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Casambi Cloud options",
+        "description": "Tune polling, timeouts, reconnection and alerting. Changes reload the integration.",
+        "data": {
+          "scan_interval": "Poll interval (seconds)",
+          "startup_timeout": "Startup timeout (seconds)",
+          "command_timeout": "Command timeout (seconds)",
+          "reconnect_initial_delay": "Initial reconnect delay (seconds)",
+          "reconnect_max_delay": "Maximum reconnect delay (seconds)",
+          "failure_threshold": "Failures before alerting",
+          "structure_refresh_interval": "Network refresh interval (seconds)",
+          "enable_persistent_notifications": "Send persistent notifications on problems",
+          "include_hidden_scenes": "Include hidden scenes"
+        }
+      }
+    }
+  },
+  "issues": {
+    "connection_lost": {
+      "title": "Casambi Cloud connection lost",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Reconnect to the Casambi Cloud",
+            "description": "The Casambi Cloud connection has been failing (last error: {error}, after {failures} consecutive problems). Select Submit to reload the integration and try to reconnect."
+          }
+        }
+      }
+    },
+    "gateway_offline": {
+      "title": "Casambi gateway offline",
+      "description": "No Casambi gateway is currently reachable for your network. Lights cannot be controlled from the cloud until a gateway (a mains-powered unit with cloud access, or the Casambi app in gateway mode) is online again. Check the gateway device's power and network/Bluetooth connectivity."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "unit_status": { "name": "Status" },
+      "unit_overheat": { "name": "Overheat" },
+      "cloud_connection": { "name": "Cloud connection" },
+      "websocket": { "name": "Realtime connection" },
+      "gateway": { "name": "Gateway" }
+    },
+    "sensor": {
+      "last_success": { "name": "Last successful update" },
+      "consecutive_failures": { "name": "Consecutive failures" },
+      "reconnect_count": { "name": "Reconnections" },
+      "command_failures": { "name": "Failed commands" },
+      "last_error": {
+        "name": "Last error",
+        "state": {
+          "none": "OK",
+          "authentication": "Authentication",
+          "session_expired": "Session expired",
+          "rate_limited": "Rate limited",
+          "connection": "Connection",
+          "timeout": "Timeout",
+          "protocol": "Protocol",
+          "command_rejected": "Command rejected",
+          "unknown": "Unknown"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "command_timeout": {
+      "message": "Timed out sending the command to {entity}."
+    },
+    "command_failed": {
+      "message": "The Casambi Cloud rejected the command ({error})."
+    },
+    "scene_timeout": {
+      "message": "Timed out activating scene {scene}."
+    },
+    "scene_failed": {
+      "message": "Could not activate the scene ({error})."
+    }
+  },
+  "services": {
+    "light_turn_on": {
+      "name": "Set brightness and distribution",
+      "description": "Turn a Casambi light on with an explicit brightness and, optionally, a light-distribution (vertical) value.",
+      "fields": {
+        "brightness": {
+          "name": "Brightness",
+          "description": "Target brightness from 0 (off) to 255 (full)."
+        },
+        "distribution": {
+          "name": "Distribution",
+          "description": "Light distribution (vertical) from 0 to 255, for fixtures that support it."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connetti a Casambi Cloud",
+        "description": "Inserisci la tua API key e le credenziali Casambi Cloud. Indica almeno una password: quella utente (del sito), quella di rete, o entrambe.",
+        "data": {
+          "email": "Email",
+          "api_key": "API key",
+          "user_password": "Password utente (sito)",
+          "network_password": "Password di rete"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Autentica di nuovo Casambi Cloud",
+        "description": "Casambi Cloud ha rifiutato le credenziali salvate per {email}. Inserisci una API key valida e almeno una password per riconnetterti.",
+        "data": {
+          "api_key": "API key",
+          "user_password": "Password utente (sito)",
+          "network_password": "Password di rete"
+        }
+      },
+      "reconfigure": {
+        "title": "Riconfigura Casambi Cloud",
+        "description": "Aggiorna le credenziali Casambi Cloud. Indica almeno una password.",
+        "data": {
+          "email": "Email",
+          "api_key": "API key",
+          "user_password": "Password utente (sito)",
+          "network_password": "Password di rete"
+        }
+      }
+    },
+    "error": {
+      "no_password": "Inserisci almeno una password (utente o di rete).",
+      "invalid_auth": "API key o password non valide.",
+      "cannot_connect": "Impossibile raggiungere Casambi Cloud. Controlla la rete e riprova.",
+      "rate_limited": "Casambi Cloud sta limitando le richieste. Attendi un momento e riprova.",
+      "unknown": "Si è verificato un errore imprevisto."
+    },
+    "abort": {
+      "already_configured": "Questo account Casambi è già configurato.",
+      "reauth_successful": "Nuova autenticazione riuscita.",
+      "reconfigure_successful": "Riconfigurazione riuscita.",
+      "wrong_account": "Le credenziali appartengono a un altro account Casambi."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opzioni Casambi Cloud",
+        "description": "Regola polling, timeout, riconnessione e avvisi. Le modifiche ricaricano l'integrazione.",
+        "data": {
+          "scan_interval": "Intervallo di polling (secondi)",
+          "startup_timeout": "Timeout di avvio (secondi)",
+          "command_timeout": "Timeout dei comandi (secondi)",
+          "reconnect_initial_delay": "Ritardo iniziale di riconnessione (secondi)",
+          "reconnect_max_delay": "Ritardo massimo di riconnessione (secondi)",
+          "failure_threshold": "Errori prima dell'avviso",
+          "structure_refresh_interval": "Intervallo di aggiornamento della rete (secondi)",
+          "enable_persistent_notifications": "Invia notifiche persistenti in caso di problemi",
+          "include_hidden_scenes": "Includi le scene nascoste"
+        }
+      }
+    }
+  },
+  "issues": {
+    "connection_lost": {
+      "title": "Connessione a Casambi Cloud persa",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Riconnetti a Casambi Cloud",
+            "description": "La connessione a Casambi Cloud continua a fallire (ultimo errore: {error}, dopo {failures} problemi consecutivi). Premi Invia per ricaricare l'integrazione e provare a riconnetterti."
+          }
+        }
+      }
+    },
+    "gateway_offline": {
+      "title": "Gateway Casambi offline",
+      "description": "Nessun gateway Casambi è al momento raggiungibile per la tua rete. Le luci non possono essere controllate dal cloud finché un gateway (un'unità alimentata a rete con accesso cloud, oppure l'app Casambi in modalità gateway) non torna online. Controlla alimentazione e connettività di rete/Bluetooth del dispositivo gateway."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "unit_status": { "name": "Stato" },
+      "unit_overheat": { "name": "Surriscaldamento" },
+      "cloud_connection": { "name": "Connessione cloud" },
+      "websocket": { "name": "Connessione in tempo reale" },
+      "gateway": { "name": "Gateway" }
+    },
+    "sensor": {
+      "last_success": { "name": "Ultimo aggiornamento riuscito" },
+      "consecutive_failures": { "name": "Errori consecutivi" },
+      "reconnect_count": { "name": "Riconnessioni" },
+      "command_failures": { "name": "Comandi falliti" },
+      "last_error": {
+        "name": "Ultimo errore",
+        "state": {
+          "none": "OK",
+          "authentication": "Autenticazione",
+          "session_expired": "Sessione scaduta",
+          "rate_limited": "Limite di frequenza",
+          "connection": "Connessione",
+          "timeout": "Timeout",
+          "protocol": "Protocollo",
+          "command_rejected": "Comando rifiutato",
+          "unknown": "Sconosciuto"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "command_timeout": {
+      "message": "Timeout nell'invio del comando a {entity}."
+    },
+    "command_failed": {
+      "message": "Casambi Cloud ha rifiutato il comando ({error})."
+    },
+    "scene_timeout": {
+      "message": "Timeout nell'attivazione della scena {scene}."
+    },
+    "scene_failed": {
+      "message": "Impossibile attivare la scena ({error})."
+    }
+  },
+  "services": {
+    "light_turn_on": {
+      "name": "Imposta luminosità e distribuzione",
+      "description": "Accende una luce Casambi con una luminosità esplicita e, facoltativamente, un valore di distribuzione della luce (verticale).",
+      "fields": {
+        "brightness": {
+          "name": "Luminosità",
+          "description": "Luminosità desiderata da 0 (spento) a 255 (massimo)."
+        },
+        "distribution": {
+          "name": "Distribuzione",
+          "description": "Distribuzione della luce (verticale) da 0 a 255, per gli apparecchi che la supportano."
+        }
+      }
+    }
+  }
+}
