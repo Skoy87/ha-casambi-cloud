@@ -1,0 +1,22 @@
+light_turn_on:
+  target:
+    entity:
+      integration: casambi_cloud
+      domain: light
+  fields:
+    brightness:
+      required: true
+      example: 200
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: slider
+    distribution:
+      required: false
+      example: 128
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: slider

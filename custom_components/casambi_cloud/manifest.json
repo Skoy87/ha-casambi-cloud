@@ -1,0 +1,17 @@
+{
+  "domain": "casambi_cloud",
+  "name": "Casambi Cloud",
+  "codeowners": [
+    "@Skoy87"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Skoy87/ha-casambi-cloud",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/Skoy87/ha-casambi-cloud/issues",
+  "loggers": [
+    "custom_components.casambi_cloud"
+  ],
+  "requirements": [],
+  "version": "1.2.0"
+}
