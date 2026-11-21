@@ -1,6 +1,9 @@
 {
   "domain": "casambi_cloud",
   "name": "Casambi Cloud",
+  "categories": [
+    "lighting.lighting_systems"
+  ],
   "codeowners": [
     "@Skoy87"
   ],
